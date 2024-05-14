@@ -1,29 +1,56 @@
-{% extends "layout.html" %} {% block title %}{{ post.title }}{% endblock %} {%
+{% extends "layout.html" %} {% block title %} {{ post.title }} {% endblock %} {%
 block content %}
-<article>
-  <h2>{{ post.title }}</h2>
-  <p>
-    by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}
-  </p>
-  <p>{{ post.content }}</p>
-</article>
-<section>
-  <h3>Comments:</h3>
-  {% for comment in post.comments %}
-  <div>
-    <p>
-      {{ comment.content }} - {{ comment.user.username }} on {{
-      comment.date_posted.strftime('%Y-%m-%d') }}
-    </p>
+<article class="media content-section">
+  <img
+    class="rounded-circle article-img"
+    src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
+  />
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ post.author.username }}</a>
+      <small class="text-muted"
+        >{{ post.date_posted.strftime('%Y-%m-%d') }}</small
+      >
+    </div>
+    <h2 class="article-title">{{ post.title }}</h2>
+    <p class="article-content">{{ post.content }}</p>
   </div>
-  {% endfor %} {% if current_user.is_authenticated %}
+</article>
+<hr />
+<div class="comments">
+  <h3>Comments</h3>
   <form method="POST" action="{{ url_for('comment_post', post_id=post.id) }}">
     {{ form.hidden_tag() }}
-    <div>{{ form.content.label }} {{ form.content() }}</div>
-    <div>{{ form.submit() }}</div>
+    <div class="form-group">
+      {{ form.content.label(class="form-control-label") }} {% if
+      form.content.errors %} {{ form.content(class="form-control form-control-lg
+      is-invalid") }}
+      <div class="invalid-feedback">
+        {% for error in form.content.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% else %} {{ form.content(class="form-control form-control-lg") }} {%
+      endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
   </form>
-  {% else %}
-  <p>You must be logged in to comment.</p>
-  {% endif %}
-</section>
+  {% for comment in post.comments %}
+  <div class="media mb-4">
+    <img
+      class="rounded-circle article-img"
+      src="{{ url_for('static', filename='profile_pics/' + comment.user.image_file) }}"
+    />
+    <div class="media-body">
+      <h5 class="mt-0">{{ comment.user.username }}</h5>
+      {{ comment.content }} -
+      <small class="text-muted"
+        >{{ comment.date_posted.strftime('%Y-%m-%d') }}</small
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

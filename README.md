@@ -18,6 +18,7 @@ This is a simple blog application built using Flask, a lightweight WSGI web appl
 ```
 flask_blog/
     ├── app.py            # Entry point for running the application
+    ├── create_db.py      # New file for initializing the database
     ├── __init__.py       # Initializes the Flask application and its extensions
     ├── routes.py         # Contains the route definitions and view functions
     ├── models.py         # Defines the database models
