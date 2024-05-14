@@ -4,6 +4,17 @@
 
 This is a simple blog application built using Flask, a lightweight WSGI web application framework in Python. The application allows users to register, log in, create posts, edit posts, delete posts, and comment on posts.
 
+## Features
+
+- User registration and login
+  ![User registration](flask_blog_register.png)
+  ![User login](flask_blog_login.png)
+- Post creation, editing, and deletion
+  ![Post creation](flask_blog_newPost.png)
+  ![Post display](flask_blog_postDisplay.png)
+- Post commenting
+  ![Post comment](flask_blog_postComment.png)
+
 ## Tech Stack
 
 - **Python**: The programming language used for the backend logic.

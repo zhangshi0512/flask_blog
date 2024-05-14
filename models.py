@@ -1,6 +1,6 @@
 from datetime import datetime
-from __init__ import db
 from flask_login import UserMixin
+from __init__ import db  # Make sure this is after app and db are defined
 
 
 class User(db.Model, UserMixin):
